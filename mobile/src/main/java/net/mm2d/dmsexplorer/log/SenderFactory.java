@@ -21,6 +21,6 @@ public class SenderFactory {
         if (BuildConfig.DEBUG) {
             return new DebugSender();
         }
-        return new EmptySender();
+        return new FirebaseSender(context);
     }
 }
