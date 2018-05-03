@@ -17,6 +17,6 @@ import net.mm2d.dmsexplorer.BuildConfig
 internal object SenderFactory {
     @JvmStatic
     fun create(context: Context): Sender {
-        return if (BuildConfig.DEBUG) DebugSender() else EmptySender()
+        return if (BuildConfig.DEBUG) DebugSender() else FirebaseSender(context)
     }
 }
