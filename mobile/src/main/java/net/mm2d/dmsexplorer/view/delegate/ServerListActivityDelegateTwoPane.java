@@ -7,12 +7,13 @@
 
 package net.mm2d.dmsexplorer.view.delegate;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.transition.Slide;
+import android.support.transition.Transition;
 import android.support.v4.app.Fragment;
-import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import net.mm2d.dmsexplorer.R;
 import net.mm2d.dmsexplorer.databinding.ServerListActivityBinding;
@@ -64,8 +65,11 @@ class ServerListActivityDelegateTwoPane extends ServerListActivityDelegate {
 
     private void setDetailFragment(boolean animate) {
         mFragment = ServerDetailFragment.newInstance();
-        if (animate && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mFragment.setEnterTransition(new Slide(Gravity.BOTTOM));
+        if (animate) {
+            final Transition transition = new Slide(Gravity.BOTTOM)
+                    .setDuration(150L)
+                    .setInterpolator(new DecelerateInterpolator());
+            mFragment.setEnterTransition(transition);
         }
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.server_detail_container, mFragment)
